@@ -13,7 +13,7 @@ import axios from "../../axios-orders";
 
 export class BurgerBuilder extends Component {
   state = {
-    purchasing: false
+    purchasing: false,
   };
 
   componentDidMount() {
@@ -22,7 +22,7 @@ export class BurgerBuilder extends Component {
 
   updatePurchaseState = () => {
     const sum = Object.keys(this.props.ings)
-      .map(igKey => this.props.ings[igKey])
+      .map((igKey) => this.props.ings[igKey])
       .reduce((sum, el) => sum + el, 0);
     return sum > 0;
   };
@@ -47,14 +47,14 @@ export class BurgerBuilder extends Component {
 
   render() {
     const disableInfo = {
-      ...this.props.ings
+      ...this.props.ings,
     };
     for (let key in disableInfo) {
       disableInfo[key] = disableInfo[key] <= 0;
     }
     let orderSummary = null;
     let burger = this.props.error ? (
-      <p>Ingredients can' be loaded!</p>
+      <p>Ingredients can't be loaded!</p>
     ) : (
       <Spinner />
     );
@@ -97,24 +97,25 @@ export class BurgerBuilder extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     ings: state.burgerBuilder.ingredients,
     price: state.burgerBuilder.totalPrice,
     error: state.burgerBuilder.error,
-    isAuthenticated: state.auth.token !== null
+    isAuthenticated: state.auth.token !== null,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    onIngredientAdded: ingredientName =>
+    onIngredientAdded: (ingredientName) =>
       dispatch(actions.addIngredient(ingredientName)),
-    onIngredientRemoved: ingredientName =>
+    onIngredientRemoved: (ingredientName) =>
       dispatch(actions.removeIngredient(ingredientName)),
     onInitIngredients: () => dispatch(actions.initIngredients()),
     onInitPurchase: () => dispatch(actions.purchaseInit()),
-    onSetAuthRedirectPath: path => dispatch(actions.setAuthRedirectPath(path))
+    onSetAuthRedirectPath: (path) =>
+      dispatch(actions.setAuthRedirectPath(path)),
   };
 };
 
